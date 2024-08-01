@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Accounts</title>
+    <link rel="stylesheet" href="/navigation.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<nav th:fragment="navbar">
+    <ul class="navbar">
+        <li><a th:href="@{/users}">Users</a></li>
+        <li><a th:href="@{/register}">Registration</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <h1>All Accounts</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Login</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>Level</th>
+            <th>Functional</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.id}">1</td>
+            <td th:text="${account.login}">exampleLogin</td>
+            <td th:text="${account.password}">examplePassword</td>
+            <td th:text="${account.email}">example@example.com</td>
+            <td th:text="${account.level}">1</td>
+            <td>
+                <a th:href="@{/user(account_id=${account.id})}">
+                    Info
+                </a>
+<!--                <form action="/update" method="post">-->
+<!--                    <button type="submit">Update</button>-->
+<!--                </form>-->
+                <a th:href="@{/update(id=${account.id})}">
+                    Update
+                </a>
+                <form th:action="@{/delete}" method="post" style="display: inline">
+                    <input name="id" type="hidden" th:value="${account.id}"/>
+                    <button type="submit" onclick="return confirm('Вы точно хотите удалить юзера?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

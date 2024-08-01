@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/navigation.css">
+    <title>Update</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        form{
+            background: wheat;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        input{
+            width: 150px;
+            height: 20px;
+        }
+        button{
+            width: 100px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<nav th:fragment="navbar">
+    <ul class="navbar">
+        <li><a th:href="@{/users}">Users</a></li>
+        <li><a th:href="@{/register}">Registration</a></li>
+    </ul>
+</nav>
+<form th:action="@{/update}" method="post" th:object="${account}">
+    <input name="id" type="text" th:field="*{id}" hidden="hidden" />
+    <br />
+    <br />
+    <input name="login" type="text" placeholder="enter login" th:field="*{login}" />
+    <br />
+    <br />
+    <input name="password" type="password" placeholder="enter password" th:field="*{password}" />
+    <br />
+    <br />
+    <input name="email" type="email" placeholder="enter email" th:field="*{email}"/>
+    <br />
+    <br />
+    <button type="submit"> Update </button>
+</form>
+</body>
+</html>

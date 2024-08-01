@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Details</title>
+    <link rel="stylesheet" href="/navigation.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .account-details {
+            margin-top: 20px;
+        }
+        .account-details label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .account-details p {
+            margin: 0 0 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<nav th:fragment="navbar">
+    <ul class="navbar">
+        <li><a th:href="@{/users}">Users</a></li>
+        <li><a th:href="@{/register}">Registration</a></li>
+    </ul>
+</nav>
+<div th:if="${account} != null" class="container">
+    <h1>Account Details</h1>
+    <div class="account-details">
+
+        <p th:text="${account.id}"/>
+
+        <p th:text="${account.login}"/>
+
+        <p th:text="${account.email}"/>
+
+        <p th:text="${account.level}"/>
+    </div>
+</div>
+<div th:if="${account} == null" class="container">
+    Такого пользователя нет
+</div>
+</body>
+</html>

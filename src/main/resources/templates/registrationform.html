@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/navigation.css">
+    <title>Registration</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        form{
+            background: wheat;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        input{
+            width: 150px;
+            height: 20px;
+        }
+        button{
+            width: 100px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<nav th:fragment="navbar">
+    <ul class="navbar">
+        <li><a th:href="@{/users}">Users</a></li>
+        <li><a th:href="@{/register}">Registration</a></li>
+    </ul>
+</nav>
+    <form th:action="@{/reg_post}" method="post">
+        <input name="login" type="text" placeholder="enter login" />
+        <br />
+        <br />
+        <input name="password" type="password" placeholder="enter password"  />
+        <br />
+        <br />
+        <input name="repeatPassword" type="password" placeholder="repeat password"  />
+        <br />
+        <br />
+        <input name="email" type="email" placeholder="enter email"  />
+        <br />
+        <br />
+        <button type="submit"> Registration </button>
+    </form>
+</body>
+</html>
