@@ -1,20 +1,28 @@
 package org.example.springdatajpalesson1.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.Validator;
 import org.example.springdatajpalesson1.entity.Account;
 import org.example.springdatajpalesson1.service.AccountService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class AccountController {
+
+
     AccountService accountService;
 
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
+
     }
 
     @GetMapping("/user")
@@ -24,30 +32,31 @@ public class AccountController {
         return "account";
     }
 
-   @RequestMapping(value = "/register",method = RequestMethod.GET)
-   // @GetMapping("/registration")
-    public String registrationGet() {
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    // @GetMapping("/registration")
+    public String registrationGet(Model model) {
+        model.addAttribute("account", new Account());
         return "registrationform";
-   }
+    }
 
     @PostMapping("/reg_post")
-    public String registrationPost(@RequestParam String login,
-                                   @RequestParam String password,
-                                   @RequestParam String repeatPassword,
-                                   @RequestParam String email
-                                   )
-    {
-        System.out.println("Start");
-        if (password.equals(repeatPassword)) {
-            Account account = new Account();
-            account.setLogin(login);
-            account.setPassword(password);
-            account.setEmail(email);
-            accountService.addAccount(account);
+    public String registrationPost(@Valid final @ModelAttribute Account account,
+                                   final BindingResult bindingResult,
+                                   final @RequestParam String repeatPassword,
+                                   final Model model) {
+
+
+
+        if (bindingResult.hasErrors()) {
+            return "registrationform";
         }
-        System.out.println("End");
 
+        if (!account.getPassword().equals(repeatPassword)) {
+            bindingResult.rejectValue("password", "Passwords do not match");
+            return "registrationform";
+        }
 
+        accountService.addAccount(account);
         return "registrationform";
     }
 

@@ -30,17 +30,25 @@
         <li><a th:href="@{/register}">Registration</a></li>
     </ul>
 </nav>
-    <form th:action="@{/reg_post}" method="post">
-        <input name="login" type="text" placeholder="enter login" />
+    <form th:action="@{/reg_post}" method="post" th:object="${account}">
+        <div>
+            <input th:field="*{login}" type="text" placeholder="enter login" />
+            <div th:if="${#fields.hasErrors('login')}"  th:errors="*{login}"></div>
+        </div>
+
+
         <br />
         <br />
-        <input name="password" type="password" placeholder="enter password"  />
+        <input th:field="*{password}" type="password" placeholder="enter password"  />
+        <div th:if="${#fields.hasErrors('password')}"  th:errors="*{password}"></div>
         <br />
         <br />
         <input name="repeatPassword" type="password" placeholder="repeat password"  />
+
         <br />
         <br />
-        <input name="email" type="email" placeholder="enter email"  />
+        <input th:field="*{email}" type="email" placeholder="enter email"  />
+        <div th:if="${#fields.hasErrors('email')}"  th:errors="*{email}"></div>
         <br />
         <br />
         <button type="submit"> Registration </button>
